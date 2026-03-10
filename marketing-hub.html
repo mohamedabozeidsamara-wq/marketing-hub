@@ -1,0 +1,2935 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مركز التسويق | Marketing Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0A1628;
+    --accent: #E8A020;
+    --accent2: #1A6EFF;
+    --surface: #0F1F3D;
+    --surface2: #152847;
+    --surface3: #1C3560;
+    --border: rgba(232,160,32,0.2);
+    --text: #E8EDF5;
+    --text-muted: #7A90B0;
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    --info: #3B82F6;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--primary);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background: 
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(26,110,255,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(232,160,32,0.06) 0%, transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: 260px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .sidebar-logo {
+    padding: 28px 20px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--accent), #F97316);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 20px rgba(232,160,32,0.4);
+  }
+
+  .logo-text { font-size: 15px; font-weight: 700; line-height: 1.3; }
+  .logo-sub { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 16px 12px;
+    overflow-y: auto;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 8px 8px 6px;
+    margin-top: 8px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 2px;
+    font-size: 14px;
+    color: var(--text-muted);
+    position: relative;
+  }
+
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+
+  .nav-item.active {
+    background: linear-gradient(135deg, rgba(232,160,32,0.15), rgba(232,160,32,0.05));
+    color: var(--accent);
+    border: 1px solid rgba(232,160,32,0.2);
+  }
+
+  .nav-item .nav-icon { font-size: 17px; width: 22px; text-align: center; }
+
+  .nav-badge {
+    margin-right: auto;
+    background: var(--danger);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+  }
+
+  .sidebar-footer {
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .user-avatar {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent2), #6366F1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .user-info { font-size: 13px; font-weight: 600; }
+  .user-role { font-size: 11px; color: var(--accent); }
+
+  /* MAIN */
+  .main {
+    margin-right: 260px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  .topbar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,22,40,0.8);
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .page-title { font-size: 20px; font-weight: 700; }
+  .page-sub { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+
+  .topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #F97316);
+    color: #0A1628;
+    box-shadow: 0 4px 15px rgba(232,160,32,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,160,32,0.4); }
+
+  .btn-ghost {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { background: var(--surface3); }
+
+  .btn-blue {
+    background: var(--accent2);
+    color: white;
+    box-shadow: 0 4px 15px rgba(26,110,255,0.3);
+  }
+
+  .content { padding: 28px 32px; }
+
+  /* VIEWS */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* STATS ROW */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-2px); }
+
+  .stat-card::before {
+    content:'';
+    position:absolute;
+    top:0; left:0; right:0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .stat-card.orange::before { background: linear-gradient(90deg, var(--accent), #F97316); }
+  .stat-card.blue::before { background: linear-gradient(90deg, var(--accent2), #6366F1); }
+  .stat-card.green::before { background: linear-gradient(90deg, var(--success), #10B981); }
+  .stat-card.red::before { background: linear-gradient(90deg, var(--danger), #F97316); }
+
+  .stat-icon { font-size: 28px; margin-bottom: 10px; }
+  .stat-num { font-size: 32px; font-weight: 900; line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .stat-change {
+    position: absolute;
+    top: 16px; left: 16px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+  }
+  .up { background: rgba(34,197,94,0.15); color: var(--success); }
+  .down { background: rgba(239,68,68,0.15); color: var(--danger); }
+
+  /* REQUESTS TABLE */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .card-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-title { font-size: 15px; font-weight: 700; }
+  .card-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  th {
+    text-align: right;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    padding: 12px 20px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 14px 20px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .badge-pending { background: rgba(245,158,11,0.15); color: var(--warning); }
+  .badge-inprogress { background: rgba(59,130,246,0.15); color: var(--info); }
+  .badge-done { background: rgba(34,197,94,0.15); color: var(--success); }
+  .badge-rejected { background: rgba(239,68,68,0.15); color: var(--danger); }
+  .badge-review { background: rgba(139,92,246,0.15); color: #A78BFA; }
+
+  .dept-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+
+  .priority-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .p-high { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+  .p-med { background: var(--warning); }
+  .p-low { background: var(--success); }
+
+  .action-btns { display: flex; gap: 6px; }
+  .icon-btn {
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .icon-btn:hover { background: var(--surface3); transform: scale(1.05); }
+
+  /* PROGRESS */
+  .progress-bar {
+    height: 5px;
+    background: var(--surface3);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transition: width 0.5s;
+  }
+
+  /* SOP VIEW */
+  .sop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .sop-dept-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sop-dept-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 30px rgba(232,160,32,0.15);
+  }
+
+  .sop-dept-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dept-avatar {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .dept-name { font-size: 15px; font-weight: 700; }
+  .dept-sop-count { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .sop-steps {
+    padding: 16px 20px;
+  }
+
+  .sop-step {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+    font-size: 13px;
+  }
+  .sop-step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 22px; height: 22px;
+    background: var(--surface3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-text { line-height: 1.5; }
+  .step-owner { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* NEW REQUEST MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    width: 580px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px;
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    background: var(--surface3);
+  }
+
+  select option { background: var(--surface); }
+  textarea { resize: vertical; min-height: 90px; }
+
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
+
+  /* KANBAN */
+  .kanban-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  .kanban-col {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .kanban-col-header {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .kanban-count {
+    background: var(--surface2);
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .kanban-cards { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+
+  .kanban-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .kanban-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .kanban-card-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; line-height: 1.4; }
+  .kanban-card-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+
+  .mini-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .k-date { font-size: 11px; color: var(--text-muted); }
+
+  /* REPORTS */
+  .reports-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+
+  .chart-placeholder {
+    height: 220px;
+    background: var(--surface2);
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .chart-bar {
+    flex: 1;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.5s;
+    cursor: pointer;
+    position: relative;
+  }
+  .chart-bar:hover { opacity: 0.8; }
+  .chart-bar-label {
+    position: absolute;
+    bottom: -20px;
+    right: 0; left: 0;
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .donut-chart {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--accent2) 0% 35%,
+      var(--accent) 35% 60%,
+      var(--success) 60% 78%,
+      var(--danger) 78% 88%,
+      #A78BFA 88% 100%
+    );
+    margin: 20px auto;
+    position: relative;
+    box-shadow: 0 0 30px rgba(26,110,255,0.2);
+  }
+  .donut-hole {
+    position: absolute;
+    inset: 25px;
+    background: var(--surface);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .donut-center-num { font-size: 20px; font-weight: 900; }
+  .donut-center-text { font-size: 10px; color: var(--text-muted); }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+  }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* NOTIFICATIONS */
+  .notif-list { padding: 8px 0; }
+  .notif-item {
+    display: flex;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .notif-item:hover { background: rgba(255,255,255,0.02); }
+  .notif-item.unread { background: rgba(26,110,255,0.04); }
+
+  .notif-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .notif-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .notif-body { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .notif-time { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .unread-dot {
+    width: 8px; height: 8px;
+    background: var(--accent2);
+    border-radius: 50%;
+    margin-top: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 0 6px var(--accent2);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1100px) {
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .sop-grid { grid-template-columns: repeat(2,1fr); }
+    .kanban-board { grid-template-columns: repeat(2,1fr); }
+    .reports-grid { grid-template-columns: 1fr; }
+    .ap-quarters { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-right: 0; padding-bottom: 80px; }
+    .topbar { padding: 0 14px; height: 56px; }
+    .page-title { font-size: 16px; }
+    .page-sub { display: none; }
+    .search-bar { display: none; }
+    .content { padding: 14px 12px; }
+    .stats-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+    .stat-num { font-size: 22px; }
+    .stat-card { padding: 14px; }
+    .sop-grid { grid-template-columns: 1fr; }
+    .kanban-board { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width:none; }
+    .kanban-board::-webkit-scrollbar { display: none; }
+    .kanban-col { min-width: 230px; flex-shrink: 0; }
+    .reports-grid { grid-template-columns: 1fr; }
+    .ap-quarters { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ap-months-grid { grid-template-columns: repeat(6,1fr); gap: 5px; }
+    .ap-month-tasks { font-size: 14px; }
+    .ap-month-name { font-size: 9px; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal { padding: 20px 16px; border-radius: 20px 20px 0 0; }
+    .modal-overlay { align-items: flex-end; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+  }
+
+  /* BOTTOM NAV */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 64px;
+    background: rgba(15,31,61,0.97);
+    border-top: 1px solid var(--border);
+    z-index: 200;
+    padding: 0 4px;
+    align-items: center;
+    justify-content: space-around;
+    backdrop-filter: blur(20px);
+  }
+
+  .mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    min-width: 48px;
+  }
+  .mobile-nav-item.active { background: rgba(232,160,32,0.12); }
+  .mobile-nav-icon { font-size: 20px; line-height: 1; }
+  .mobile-nav-label { font-size: 9px; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+  .mobile-nav-item.active .mobile-nav-label { color: var(--accent); }
+  .mobile-nav-badge {
+    position: absolute; top: 4px; left: 6px;
+    background: var(--danger); color: white;
+    font-size: 9px; font-weight: 700;
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--surface);
+  }
+
+  .mobile-more-menu {
+    display: none;
+    position: fixed;
+    bottom: 70px; left: 10px; right: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px;
+    z-index: 300;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+    animation: slideUp 0.2s ease;
+    display: none;
+  }
+  .mobile-more-menu.open { display: block; }
+  .mobile-more-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .mobile-more-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  .mobile-more-item:hover, .mobile-more-item.active { color: var(--accent); border-color: rgba(232,160,32,0.3); background: var(--surface3); }
+  .mobile-more-icon { font-size: 18px; }
+
+  @media (max-width: 768px) { .mobile-nav { display: flex; } }
+
+  /* ACTION PLAN */
+  .ap-year-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .ap-year-progress {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+  }
+
+  .ap-year-ring {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0% 22%, var(--surface3) 22% 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(232,160,32,0.2);
+  }
+  .ap-year-ring-inner {
+    width: 40px; height: 40px;
+    background: var(--surface);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: var(--accent);
+  }
+
+  .ap-quarters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .ap-quarter-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .ap-quarter-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  .ap-quarter-card.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(232,160,32,0.2), 0 8px 30px rgba(232,160,32,0.1);
+  }
+
+  .ap-q-header {
+    padding: 16px 18px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ap-q-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .ap-q-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+
+  .ap-q-bar-wrap {
+    height: 6px;
+    background: var(--surface3);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .ap-q-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease;
+  }
+
+  .ap-q-stats {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 18px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .ap-q-stat-num { font-weight: 700; font-size: 14px; }
+
+  /* Monthly Timeline */
+  .ap-months-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .ap-month-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .ap-month-cell:hover { border-color: var(--accent2); background: var(--surface2); }
+  .ap-month-cell.current {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(232,160,32,0.1), rgba(249,115,22,0.05));
+  }
+  .ap-month-cell.done { opacity: 0.6; }
+
+  .ap-month-name { font-size: 11px; font-weight: 700; margin-bottom: 6px; }
+  .ap-month-tasks {
+    font-size: 18px; font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .ap-month-bar {
+    height: 3px;
+    background: var(--surface3);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .ap-month-fill {
+    height: 100%;
+    border-radius: 10px;
+  }
+
+  /* Initiative Cards */
+  .ap-initiatives {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ap-init-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .ap-init-card:hover {
+    border-color: rgba(232,160,32,0.4);
+    transform: translateX(-2px);
+  }
+
+  .ap-init-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .ap-init-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .ap-init-title { font-size: 14px; font-weight: 700; flex: 1; }
+  .ap-init-dept { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .ap-init-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .ap-init-kpi {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .ap-init-kpi strong { color: var(--text); }
+
+  .ap-gantt {
+    margin-top: 12px;
+    position: relative;
+    height: 28px;
+    background: var(--surface2);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .ap-gantt-bar {
+    position: absolute;
+    top: 4px; bottom: 4px;
+    border-radius: 4px;
+    display: flex; align-items: center;
+    padding: 0 8px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .ap-gantt-months {
+    display: flex;
+    margin-top: 4px;
+  }
+  .ap-gantt-month-label {
+    flex: 1;
+    text-align: center;
+    font-size: 9px;
+    color: var(--text-muted);
+  }
+
+  /* Filter pills */
+  .ap-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .ap-filter-pill {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .ap-filter-pill.active, .ap-filter-pill:hover {
+    background: var(--surface2);
+    color: var(--accent);
+    border-color: rgba(232,160,32,0.4);
+  }
+
+  /* OKR section */
+  .okr-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .okr-objective {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .okr-kr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    font-size: 12px;
+  }
+  .okr-kr-text { flex: 1; }
+  .okr-kr-val { font-weight: 700; color: var(--accent); font-size: 13px; white-space: nowrap; }
+  .okr-bar { width: 80px; height: 5px; background: var(--surface3); border-radius: 10px; overflow: hidden; flex-shrink: 0; }
+  .okr-fill { height: 100%; border-radius: 10px; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+  .tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .tab.active { background: var(--surface2); color: var(--accent); border: 1px solid rgba(232,160,32,0.3); }
+  .tab:hover:not(.active) { background: var(--surface2); color: var(--text); }
+
+  /* SEARCH */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 14px;
+    width: 260px;
+  }
+  .search-bar input {
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    font-size: 13px;
+  }
+
+  /* Timeline for SOP detail */
+  .timeline {
+    position: relative;
+    padding-right: 28px;
+  }
+  .timeline::before {
+    content:'';
+    position:absolute;
+    right: 10px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 20px 24px 0;
+  }
+  .timeline-item::before {
+    content:'';
+    position:absolute;
+    right: -10px; top: 4px;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(232,160,32,0.5);
+    margin-right: -5px;
+  }
+  .tl-step { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .tl-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .tl-owner { font-size: 11px; color: var(--accent); margin-top: 4px; }
+
+  /* scroll */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+  /* Loader */
+  .skeleton {
+    background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 6px;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">
+      <div class="logo-icon">📢</div>
+      <div>
+        <div class="logo-text">مركز التسويق</div>
+        <div class="logo-sub">Marketing Operations Hub</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">الرئيسية</div>
+    <div class="nav-item active" onclick="navigate('dashboard')">
+      <span class="nav-icon">🏠</span> لوحة التحكم
+    </div>
+    <div class="nav-item" onclick="navigate('requests')">
+      <span class="nav-icon">📋</span> الطلبات
+      <span class="nav-badge">7</span>
+    </div>
+    <div class="nav-item" onclick="navigate('kanban')">
+      <span class="nav-icon">🗂️</span> بورد المهام
+    </div>
+
+    <div class="nav-section-label">الإجراءات</div>
+    <div class="nav-item" onclick="navigate('actionplan')">
+      <span class="nav-icon">🎯</span> خطة العمل السنوية
+    </div>
+    <div class="nav-item" onclick="navigate('sop')">
+      <span class="nav-icon">📘</span> دليل الإجراءات SOP
+    </div>
+    <div class="nav-item" onclick="navigate('approvals')">
+      <span class="nav-icon">✅</span> الاعتمادات
+      <span class="nav-badge">3</span>
+    </div>
+
+    <div class="nav-section-label">التحليلات</div>
+    <div class="nav-item" onclick="navigate('reports')">
+      <span class="nav-icon">📊</span> التقارير
+    </div>
+    <div class="nav-item" onclick="navigate('notifications')">
+      <span class="nav-icon">🔔</span> الإشعارات
+      <span class="nav-badge">5</span>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-avatar">أم</div>
+    <div>
+      <div class="user-info">أحمد محمد</div>
+      <div class="user-role">مدير التسويق</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="page-title" id="pageTitle">لوحة التحكم</div>
+      <div class="page-sub" id="pageSub">نظرة عامة على أعمال إدارة التسويق</div>
+    </div>
+    <div class="topbar-actions">
+      <div class="search-bar">
+        <span>🔍</span>
+        <input placeholder="بحث في الطلبات والمهام...">
+      </div>
+      <button class="btn btn-primary" onclick="openModal()">
+        <span>＋</span> طلب جديد
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <div id="view-dashboard" class="view active">
+      <div class="stats-grid">
+        <div class="stat-card orange">
+          <span class="stat-change up">↑ 12%</span>
+          <div class="stat-icon">📋</div>
+          <div class="stat-num">47</div>
+          <div class="stat-label">إجمالي الطلبات هذا الشهر</div>
+        </div>
+        <div class="stat-card blue">
+          <span class="stat-change up">↑ 8%</span>
+          <div class="stat-icon">⚡</div>
+          <div class="stat-num">12</div>
+          <div class="stat-label">طلبات قيد التنفيذ</div>
+        </div>
+        <div class="stat-card green">
+          <span class="stat-change up">↑ 20%</span>
+          <div class="stat-icon">✅</div>
+          <div class="stat-num">28</div>
+          <div class="stat-label">طلبات مكتملة</div>
+        </div>
+        <div class="stat-card red">
+          <span class="stat-change down">↑ 2</span>
+          <div class="stat-icon">⏰</div>
+          <div class="stat-num">7</div>
+          <div class="stat-label">طلبات تنتظر الاعتماد</div>
+        </div>
+      </div>
+
+      <!-- Recent Requests + Dept Summary -->
+      <div style="display:grid; grid-template-columns:2fr 1fr; gap:20px">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🕐 آخر الطلبات الواردة</div>
+              <div class="card-sub">آخر 5 طلبات على النظام</div>
+            </div>
+            <button class="btn btn-ghost" onclick="navigate('requests')">عرض الكل</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>الطلب</th>
+                <th>الإدارة</th>
+                <th>الأولوية</th>
+                <th>الحالة</th>
+                <th>التاريخ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span style="font-weight:600">تصميم مواد حملة رمضان</span></td>
+                <td><span class="dept-tag">🎨 إبداعي</span></td>
+                <td><span class="priority-dot p-high"></span> عالية</td>
+                <td><span class="badge badge-inprogress">🔵 قيد التنفيذ</span></td>
+                <td style="color:var(--text-muted)">اليوم</td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">تقرير المبيعات الشهري</span></td>
+                <td><span class="dept-tag">💰 المبيعات</span></td>
+                <td><span class="priority-dot p-med"></span> متوسطة</td>
+                <td><span class="badge badge-review">🟣 مراجعة</span></td>
+                <td style="color:var(--text-muted)">أمس</td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">اعتماد ميزانية إعلانات</span></td>
+                <td><span class="dept-tag">🏦 المالية</span></td>
+                <td><span class="priority-dot p-high"></span> عالية</td>
+                <td><span class="badge badge-pending">🟡 انتظار</span></td>
+                <td style="color:var(--text-muted)">منذ يومين</td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">صفحة هبوط منتج جديد</span></td>
+                <td><span class="dept-tag">💻 IT</span></td>
+                <td><span class="priority-dot p-low"></span> عادية</td>
+                <td><span class="badge badge-done">🟢 مكتمل</span></td>
+                <td style="color:var(--text-muted)">3 أيام</td>
+              </tr>
+              <tr>
+                <td><span style="font-weight:600">مواد تدريب فريق المبيعات</span></td>
+                <td><span class="dept-tag">👥 HR</span></td>
+                <td><span class="priority-dot p-med"></span> متوسطة</td>
+                <td><span class="badge badge-inprogress">🔵 قيد التنفيذ</span></td>
+                <td style="color:var(--text-muted)">4 أيام</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header">
+              <div>
+                <div class="card-title">🏢 أكثر الإدارات تفاعلاً</div>
+              </div>
+            </div>
+            <div style="padding:16px">
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                    <span>💰 المبيعات</span><span style="color:var(--accent)">35%</span>
+                  </div>
+                  <div class="progress-bar" style="width:100%">
+                    <div class="progress-fill" style="width:35%;background:linear-gradient(90deg,#E8A020,#F97316)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                    <span>🏦 المالية</span><span style="color:var(--accent2)">25%</span>
+                  </div>
+                  <div class="progress-bar" style="width:100%">
+                    <div class="progress-fill" style="width:25%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                    <span>💻 IT</span><span style="color:var(--success)">20%</span>
+                  </div>
+                  <div class="progress-bar" style="width:100%">
+                    <div class="progress-fill" style="width:20%;background:linear-gradient(90deg,#22C55E,#10B981)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                    <span>👥 الموارد البشرية</span><span style="color:#A78BFA">12%</span>
+                  </div>
+                  <div class="progress-bar" style="width:100%">
+                    <div class="progress-fill" style="width:12%;background:linear-gradient(90deg,#A78BFA,#6366F1)"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px">
+                    <span>🏭 العمليات</span><span style="color:var(--danger)">8%</span>
+                  </div>
+                  <div class="progress-bar" style="width:100%">
+                    <div class="progress-fill" style="width:8%;background:linear-gradient(90deg,#EF4444,#F97316)"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">📅 مهام اليوم</div>
+            </div>
+            <div style="padding:12px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:var(--surface2);border-radius:9px;padding:11px 13px;border-right:3px solid var(--accent);font-size:13px">
+                  اجتماع مراجعة حملة Q1<br>
+                  <span style="font-size:11px;color:var(--text-muted)">🕐 10:00 ص</span>
+                </div>
+                <div style="background:var(--surface2);border-radius:9px;padding:11px 13px;border-right:3px solid var(--accent2);font-size:13px">
+                  تسليم ملف الإعلانات للمالية<br>
+                  <span style="font-size:11px;color:var(--text-muted)">🕒 2:00 م</span>
+                </div>
+                <div style="background:var(--surface2);border-radius:9px;padding:11px 13px;border-right:3px solid var(--success);font-size:13px">
+                  مراجعة محتوى السوشيال مع IT<br>
+                  <span style="font-size:11px;color:var(--text-muted)">🕔 4:00 م</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ REQUESTS ═══ -->
+    <div id="view-requests" class="view">
+      <div class="tabs">
+        <div class="tab active">📋 الكل (47)</div>
+        <div class="tab">⏳ انتظار (7)</div>
+        <div class="tab">⚡ تنفيذ (12)</div>
+        <div class="tab">✅ مكتمل (28)</div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">جميع الطلبات</div>
+            <div class="card-sub">إدارة وتتبع الطلبات بين الإدارات</div>
+          </div>
+          <button class="btn btn-primary" onclick="openModal()">＋ طلب جديد</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>عنوان الطلب</th>
+              <th>الإدارة الطالبة</th>
+              <th>المسؤول</th>
+              <th>الأولوية</th>
+              <th>الحالة</th>
+              <th>التقدم</th>
+              <th>الموعد</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px">#001</td>
+              <td><span style="font-weight:600">تصميم مواد حملة رمضان 2025</span></td>
+              <td><span class="dept-tag">💰 المبيعات</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#E8A020,#F97316)">سم</div>
+                  سارة م.
+                </div>
+              </td>
+              <td><span class="priority-dot p-high"></span> عالية</td>
+              <td><span class="badge badge-inprogress">⚡ تنفيذ</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+                  <span style="font-size:11px;color:var(--text-muted)">65%</span>
+                </div>
+              </td>
+              <td style="color:var(--warning);font-size:12px">15 مارس</td>
+              <td>
+                <div class="action-btns">
+                  <div class="icon-btn" title="عرض">👁️</div>
+                  <div class="icon-btn" title="تعديل">✏️</div>
+                  <div class="icon-btn" title="تعليق">💬</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px">#002</td>
+              <td><span style="font-weight:600">اعتماد ميزانية إعلانات الربع الأول</span></td>
+              <td><span class="dept-tag">🏦 المالية</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#1A6EFF,#6366F1)">أح</div>
+                  أحمد ح.
+                </div>
+              </td>
+              <td><span class="priority-dot p-high"></span> عالية</td>
+              <td><span class="badge badge-pending">⏳ انتظار</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div>
+                  <span style="font-size:11px;color:var(--text-muted)">30%</span>
+                </div>
+              </td>
+              <td style="color:var(--danger);font-size:12px">10 مارس</td>
+              <td>
+                <div class="action-btns">
+                  <div class="icon-btn">👁️</div>
+                  <div class="icon-btn">✏️</div>
+                  <div class="icon-btn">💬</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px">#003</td>
+              <td><span style="font-weight:600">صفحة هبوط منتج الكاميرا الجديد</span></td>
+              <td><span class="dept-tag">💻 IT</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#22C55E,#10B981)">مح</div>
+                  محمد ع.
+                </div>
+              </td>
+              <td><span class="priority-dot p-med"></span> متوسطة</td>
+              <td><span class="badge badge-done">✅ مكتمل</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+                  <span style="font-size:11px;color:var(--success)">100%</span>
+                </div>
+              </td>
+              <td style="color:var(--text-muted);font-size:12px">5 مارس</td>
+              <td>
+                <div class="action-btns">
+                  <div class="icon-btn">👁️</div>
+                  <div class="icon-btn">✏️</div>
+                  <div class="icon-btn">💬</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px">#004</td>
+              <td><span style="font-weight:600">محتوى تدريبي لفريق المبيعات</span></td>
+              <td><span class="dept-tag">👥 HR</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#A78BFA,#6366F1)">نو</div>
+                  نور ف.
+                </div>
+              </td>
+              <td><span class="priority-dot p-med"></span> متوسطة</td>
+              <td><span class="badge badge-inprogress">⚡ تنفيذ</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+                  <span style="font-size:11px;color:var(--text-muted)">50%</span>
+                </div>
+              </td>
+              <td style="color:var(--text-muted);font-size:12px">20 مارس</td>
+              <td>
+                <div class="action-btns">
+                  <div class="icon-btn">👁️</div>
+                  <div class="icon-btn">✏️</div>
+                  <div class="icon-btn">💬</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px">#005</td>
+              <td><span style="font-weight:600">بيانات مبيعات لتحليل حملات</span></td>
+              <td><span class="dept-tag">🏭 العمليات</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="mini-avatar" style="background:linear-gradient(135deg,#EF4444,#F97316)">خا</div>
+                  خالد س.
+                </div>
+              </td>
+              <td><span class="priority-dot p-low"></span> عادية</td>
+              <td><span class="badge badge-review">🟣 مراجعة</span></td>
+              <td>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+                  <span style="font-size:11px;color:var(--text-muted)">80%</span>
+                </div>
+              </td>
+              <td style="color:var(--text-muted);font-size:12px">18 مارس</td>
+              <td>
+                <div class="action-btns">
+                  <div class="icon-btn">👁️</div>
+                  <div class="icon-btn">✏️</div>
+                  <div class="icon-btn">💬</div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ═══ KANBAN ═══ -->
+    <div id="view-kanban" class="view">
+      <div class="kanban-board">
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--warning)">
+            <span>⏳ انتظار</span>
+            <span class="kanban-count">3</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">🏦 المالية</span>
+                <span class="priority-dot p-high" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">اعتماد ميزانية إعلانات رمضان</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#1A6EFF,#6366F1)">أح</div>
+                <span class="k-date">📅 10 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">💰 المبيعات</span>
+                <span class="priority-dot p-med" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">قائمة المنتجات المستهدفة Q2</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#E8A020,#F97316)">سم</div>
+                <span class="k-date">📅 12 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">👥 HR</span>
+                <span class="priority-dot p-low" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">صور وبيانات موظفين جدد للتعريف</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#A78BFA,#6366F1)">نو</div>
+                <span class="k-date">📅 25 مارس</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--accent2)">
+            <span>⚡ تنفيذ</span>
+            <span class="kanban-count">4</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">💰 المبيعات</span>
+                <span class="priority-dot p-high" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">تصميم مواد حملة رمضان 2025</div>
+              <div style="margin:8px 0">
+                <div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:65%"></div></div>
+              </div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#E8A020,#F97316)">سم</div>
+                <span class="k-date">📅 15 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">💻 IT</span>
+                <span class="priority-dot p-med" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">تحديث صفحة المنتجات على الموقع</div>
+              <div style="margin:8px 0">
+                <div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:40%"></div></div>
+              </div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#22C55E,#10B981)">مح</div>
+                <span class="k-date">📅 22 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">👥 HR</span>
+                <span class="priority-dot p-med" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">محتوى تدريبي لفريق المبيعات</div>
+              <div style="margin:8px 0">
+                <div class="progress-bar" style="width:100%"><div class="progress-fill" style="width:50%"></div></div>
+              </div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#A78BFA,#6366F1)">نو</div>
+                <span class="k-date">📅 20 مارس</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid #A78BFA">
+            <span>🔍 مراجعة</span>
+            <span class="kanban-count">2</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">🏭 العمليات</span>
+                <span class="priority-dot p-low" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">بيانات مبيعات لتحليل حملات Q1</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#EF4444,#F97316)">خا</div>
+                <span class="k-date">📅 18 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px">
+                <span class="dept-tag">💰 المبيعات</span>
+                <span class="priority-dot p-med" style="margin-top:3px"></span>
+              </div>
+              <div class="kanban-card-title">تقرير أداء الحملات للمبيعات</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#1A6EFF,#6366F1)">أح</div>
+                <span class="k-date">📅 11 مارس</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kanban-col">
+          <div class="kanban-col-header" style="border-top:3px solid var(--success)">
+            <span>✅ مكتمل</span>
+            <span class="kanban-count">5</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="kanban-card" style="opacity:0.7">
+              <div style="margin-bottom:6px"><span class="dept-tag">💻 IT</span></div>
+              <div class="kanban-card-title">صفحة هبوط منتج الكاميرا الجديد</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#22C55E,#10B981)">مح</div>
+                <span class="k-date" style="color:var(--success)">✓ 5 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card" style="opacity:0.7">
+              <div style="margin-bottom:6px"><span class="dept-tag">🏦 المالية</span></div>
+              <div class="kanban-card-title">تقرير استهلاك ميزانية يناير</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#1A6EFF,#6366F1)">أح</div>
+                <span class="k-date" style="color:var(--success)">✓ 2 مارس</span>
+              </div>
+            </div>
+            <div class="kanban-card" style="opacity:0.7">
+              <div style="margin-bottom:6px"><span class="dept-tag">💰 المبيعات</span></div>
+              <div class="kanban-card-title">بروشور منتجات Q1 2025</div>
+              <div class="kanban-card-meta">
+                <div class="mini-avatar" style="background:linear-gradient(135deg,#E8A020,#F97316)">سم</div>
+                <span class="k-date" style="color:var(--success)">✓ 28 فبراير</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ SOP ═══ -->
+    <div id="view-sop" class="view">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:16px;font-weight:700;margin-bottom:4px">📘 دليل الإجراءات التشغيلية (SOPs)</div>
+          <div style="font-size:13px;color:var(--text-muted)">الإجراءات المعتمدة بين إدارة التسويق وباقي الإدارات</div>
+        </div>
+        <button class="btn btn-primary">＋ إضافة إجراء</button>
+      </div>
+
+      <div class="sop-grid">
+        <!-- المبيعات -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(232,160,32,0.2),rgba(249,115,22,0.2));border:1px solid rgba(232,160,32,0.3)">💰</div>
+            <div>
+              <div class="dept-name">إدارة المبيعات</div>
+              <div class="dept-sop-count">4 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-done" style="margin-right:auto">✓ محدّث</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">يُرسل قسم المبيعات طلب الحملة عبر النظام مع تفاصيل المنتج والسوق المستهدف</div>
+                <div class="step-owner">👤 مدير المبيعات → نظام الطلبات</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">يُراجع التسويق الطلب ويؤكد الاستلام خلال 24 ساعة</div>
+                <div class="step-owner">👤 مشرف التسويق → البريد الإلكتروني</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">يُعقد اجتماع briefing خلال 48 ساعة لتوضيح المتطلبات</div>
+                <div class="step-owner">👤 فريق التسويق + المبيعات</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">4</div>
+              <div>
+                <div class="step-text">يُسلَّم الإنتاج النهائي مع تقرير أداء شهري للمبيعات</div>
+                <div class="step-owner">👤 التسويق → مدير المبيعات</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- المالية -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(26,110,255,0.2),rgba(99,102,241,0.2));border:1px solid rgba(26,110,255,0.3)">🏦</div>
+            <div>
+              <div class="dept-name">إدارة المالية</div>
+              <div class="dept-sop-count">5 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-done" style="margin-right:auto">✓ محدّث</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">يقدم التسويق طلب ميزانية مع خطة مفصلة قبل 15 يوم من بداية الشهر</div>
+                <div class="step-owner">👤 مدير التسويق → CFO</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">تُراجع المالية الطلب وتُوافق أو تُعدّل خلال 5 أيام عمل</div>
+                <div class="step-owner">👤 مدير المالية</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">يُرسل التسويق تقرير صرف أسبوعي لمتابعة الإنفاق</div>
+                <div class="step-owner">👤 المحاسب التسويقي</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">4</div>
+              <div>
+                <div class="step-text">مراجعة شهرية مشتركة لمقارنة المصروفات بالخطة</div>
+                <div class="step-owner">👤 التسويق + المالية</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">5</div>
+              <div>
+                <div class="step-text">أي إنفاق فوق 5000 ريال يحتاج اعتماد مدير المالية مسبقاً</div>
+                <div class="step-owner">👤 مدير التسويق + مدير المالية</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IT -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(16,185,129,0.2));border:1px solid rgba(34,197,94,0.3)">💻</div>
+            <div>
+              <div class="dept-name">إدارة IT / التقنية</div>
+              <div class="dept-sop-count">4 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-pending" style="margin-right:auto">⚠️ قيد المراجعة</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">يُقدم التسويق طلب تقني (موقع/تطبيق/نظام) عبر تذكرة IT</div>
+                <div class="step-owner">👤 مدير التسويق → IT Helpdesk</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">يُقيّم فريق IT الطلب ويُحدد الجدول الزمني خلال 48 ساعة</div>
+                <div class="step-owner">👤 مدير IT</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">يُوفر IT بيئة اختبار للتسويق قبل الإطلاق الرسمي</div>
+                <div class="step-owner">👤 مطور IT + مسؤول التسويق</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">4</div>
+              <div>
+                <div class="step-text">اعتماد نهائي من التسويق قبل النشر على الإنتاج</div>
+                <div class="step-owner">👤 مدير التسويق</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HR -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(167,139,250,0.2),rgba(99,102,241,0.2));border:1px solid rgba(167,139,250,0.3)">👥</div>
+            <div>
+              <div class="dept-name">الموارد البشرية</div>
+              <div class="dept-sop-count">3 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-done" style="margin-right:auto">✓ محدّث</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">تُخطر HR التسويق بالموظفين الجدد قبل 3 أيام من الانضمام</div>
+                <div class="step-owner">👤 مدير HR → مدير التسويق</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">يُعدّ التسويق محتوى تعريفي وبطاقات تعريف للموظفين الجدد</div>
+                <div class="step-owner">👤 مشرف المحتوى</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">تنسيق مشترك لفعاليات الشركة والأنشطة الداخلية</div>
+                <div class="step-owner">👤 التسويق + HR</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- العمليات -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(249,115,22,0.2));border:1px solid rgba(239,68,68,0.3)">🏭</div>
+            <div>
+              <div class="dept-name">إدارة العمليات</div>
+              <div class="dept-sop-count">3 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-pending" style="margin-right:auto">⚠️ قيد المراجعة</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">تُزوّد العمليات التسويق ببيانات الإنتاج والمخزون شهرياً</div>
+                <div class="step-owner">👤 مدير العمليات</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">يُنسّق التسويق مع العمليات قبل إطلاق أي حملة ترويجية</div>
+                <div class="step-owner">👤 مدير التسويق + العمليات</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">تتولى العمليات تنفيذ الطلبات الترويجية ميدانياً بالتنسيق مع التسويق</div>
+                <div class="step-owner">👤 فريق العمليات</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- خدمة العملاء -->
+        <div class="sop-dept-card">
+          <div class="sop-dept-header">
+            <div class="dept-avatar" style="background:linear-gradient(135deg,rgba(34,197,94,0.15),rgba(232,160,32,0.15));border:1px solid rgba(34,197,94,0.3)">🎧</div>
+            <div>
+              <div class="dept-name">خدمة العملاء</div>
+              <div class="dept-sop-count">3 إجراءات معتمدة</div>
+            </div>
+            <span class="badge badge-done" style="margin-right:auto">✓ محدّث</span>
+          </div>
+          <div class="sop-steps">
+            <div class="sop-step">
+              <div class="step-num">1</div>
+              <div>
+                <div class="step-text">تُرسل خدمة العملاء تقرير أسبوعي بأبرز شكاوى وملاحظات العملاء</div>
+                <div class="step-owner">👤 مدير خدمة العملاء</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">2</div>
+              <div>
+                <div class="step-text">يُقدم التسويق ردوداً موحّدة ومحتوى لمعالجة الشكاوى الشائعة</div>
+                <div class="step-owner">👤 مسؤول المحتوى</div>
+              </div>
+            </div>
+            <div class="sop-step">
+              <div class="step-num">3</div>
+              <div>
+                <div class="step-text">اجتماع شهري مشترك لمراجعة صوت العميل وتحديث الرسائل التسويقية</div>
+                <div class="step-owner">👤 التسويق + خدمة العملاء</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ APPROVALS ═══ -->
+    <div id="view-approvals" class="view">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">✅ الاعتمادات المعلقة</div>
+            <div class="card-sub">3 طلبات تحتاج موافقتك</div>
+          </div>
+        </div>
+        <div style="padding:8px 0">
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                  <span class="badge badge-pending">⏳ اعتماد مطلوب</span>
+                  <span class="dept-tag">🏦 المالية</span>
+                  <span style="font-size:11px;color:var(--text-muted)">منذ يومين</span>
+                </div>
+                <div style="font-size:15px;font-weight:700;margin-bottom:6px">اعتماد ميزانية إعلانات الربع الأول 2025</div>
+                <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
+                  طلب اعتماد ميزانية قدرها <strong style="color:var(--accent)">85,000 ريال</strong> لحملات إعلانية رقمية وخارجية خلال الربع الأول. تشمل منصات السوشيال ميديا، الإعلانات المدفوعة، واللوحات الإعلانية.
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px">
+                  <div style="background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px">📎 ملف الخطة.pdf</div>
+                  <div style="background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px">📊 مقارنة بالميزانية السابقة.xlsx</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+                <button class="btn btn-primary" style="background:linear-gradient(135deg,#22C55E,#10B981);box-shadow:0 4px 15px rgba(34,197,94,0.3)">✓ اعتماد</button>
+                <button class="btn btn-ghost" style="border-color:rgba(239,68,68,0.3);color:var(--danger)">✕ رفض</button>
+                <button class="btn btn-ghost">💬 تعليق</button>
+              </div>
+            </div>
+          </div>
+          <div style="padding:20px 24px;border-bottom:1px solid var(--border)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                  <span class="badge badge-pending">⏳ اعتماد مطلوب</span>
+                  <span class="dept-tag">💻 IT</span>
+                  <span style="font-size:11px;color:var(--text-muted)">منذ يوم</span>
+                </div>
+                <div style="font-size:15px;font-weight:700;margin-bottom:6px">إطلاق الموقع الجديد للمنتج</div>
+                <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
+                  اكتمل تطوير الصفحة الجديدة للمنتج وجاهزة للنشر. تحتاج الاعتماد النهائي من مدير التسويق قبل الرفع على السيرفر الرئيسي.
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px">
+                  <div style="background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px">🔗 رابط الاختبار</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+                <button class="btn btn-primary" style="background:linear-gradient(135deg,#22C55E,#10B981);box-shadow:0 4px 15px rgba(34,197,94,0.3)">✓ اعتماد</button>
+                <button class="btn btn-ghost" style="border-color:rgba(239,68,68,0.3);color:var(--danger)">✕ رفض</button>
+                <button class="btn btn-ghost">💬 تعليق</button>
+              </div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <div style="flex:1">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+                  <span class="badge badge-pending">⏳ اعتماد مطلوب</span>
+                  <span class="dept-tag">💰 المبيعات</span>
+                  <span style="font-size:11px;color:var(--text-muted)">منذ 3 أيام</span>
+                </div>
+                <div style="font-size:15px;font-weight:700;margin-bottom:6px">تصميمات رمضان النهائية</div>
+                <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
+                  تصميمات حملة رمضان جاهزة للنشر على منصات السوشيال ميديا. تشمل 15 تصميم ستاتيك و3 فيديوهات قصيرة.
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px">
+                  <div style="background:var(--surface2);border-radius:7px;padding:6px 12px;font-size:12px">🖼️ ملف التصميمات.zip</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0">
+                <button class="btn btn-primary" style="background:linear-gradient(135deg,#22C55E,#10B981);box-shadow:0 4px 15px rgba(34,197,94,0.3)">✓ اعتماد</button>
+                <button class="btn btn-ghost" style="border-color:rgba(239,68,68,0.3);color:var(--danger)">✕ رفض</button>
+                <button class="btn btn-ghost">💬 تعليق</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ REPORTS ═══ -->
+    <div id="view-reports" class="view">
+      <div class="stats-grid" style="margin-bottom:24px">
+        <div class="stat-card blue">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-num">2.4</div>
+          <div class="stat-label">متوسط وقت الاستجابة (أيام)</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-num">94%</div>
+          <div class="stat-label">نسبة إنجاز الطلبات في الموعد</div>
+        </div>
+        <div class="stat-card orange">
+          <div class="stat-icon">📈</div>
+          <div class="stat-num">47</div>
+          <div class="stat-label">إجمالي الطلبات هذا الشهر</div>
+        </div>
+        <div class="stat-card red">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-num">4.8</div>
+          <div class="stat-label">متوسط تقييم الخدمة</div>
+        </div>
+      </div>
+
+      <div class="reports-grid">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📊 الطلبات الشهرية</div>
+              <div class="card-sub">الطلبات المكتملة والواردة خلال 6 أشهر</div>
+            </div>
+          </div>
+          <div style="padding:20px">
+            <div class="chart-placeholder" style="height:200px;position:relative;padding-bottom:30px">
+              <div class="chart-bar" style="height:55%;background:linear-gradient(0deg,var(--accent2),rgba(26,110,255,0.5))">
+                <span class="chart-bar-label">أكتوبر</span>
+              </div>
+              <div class="chart-bar" style="height:70%;background:linear-gradient(0deg,var(--accent2),rgba(26,110,255,0.5))">
+                <span class="chart-bar-label">نوفمبر</span>
+              </div>
+              <div class="chart-bar" style="height:45%;background:linear-gradient(0deg,var(--accent2),rgba(26,110,255,0.5))">
+                <span class="chart-bar-label">ديسمبر</span>
+              </div>
+              <div class="chart-bar" style="height:80%;background:linear-gradient(0deg,var(--accent2),rgba(26,110,255,0.5))">
+                <span class="chart-bar-label">يناير</span>
+              </div>
+              <div class="chart-bar" style="height:65%;background:linear-gradient(0deg,var(--accent2),rgba(26,110,255,0.5))">
+                <span class="chart-bar-label">فبراير</span>
+              </div>
+              <div class="chart-bar" style="height:90%;background:linear-gradient(0deg,var(--accent),rgba(232,160,32,0.6))">
+                <span class="chart-bar-label" style="color:var(--accent)">مارس</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🥧 توزيع الطلبات</div>
+          </div>
+          <div style="padding:16px">
+            <div class="donut-chart">
+              <div class="donut-hole">
+                <div class="donut-center-num">47</div>
+                <div class="donut-center-text">طلب</div>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--accent2)"></div>
+                <span style="flex:1;font-size:12px">المبيعات</span>
+                <span style="font-size:12px;color:var(--text-muted)">35%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--accent)"></div>
+                <span style="flex:1;font-size:12px">المالية</span>
+                <span style="font-size:12px;color:var(--text-muted)">25%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--success)"></div>
+                <span style="flex:1;font-size:12px">IT</span>
+                <span style="font-size:12px;color:var(--text-muted)">18%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:var(--danger)"></div>
+                <span style="flex:1;font-size:12px">العمليات</span>
+                <span style="font-size:12px;color:var(--text-muted)">12%</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot" style="background:#A78BFA"></div>
+                <span style="flex:1;font-size:12px">أخرى</span>
+                <span style="font-size:12px;color:var(--text-muted)">10%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ NOTIFICATIONS ═══ -->
+    <div id="view-notifications" class="view">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">🔔 الإشعارات</div>
+            <div class="card-sub">5 إشعارات غير مقروءة</div>
+          </div>
+          <button class="btn btn-ghost">✓ تحديد الكل كمقروء</button>
+        </div>
+        <div class="notif-list">
+          <div class="notif-item unread">
+            <div class="notif-icon" style="background:rgba(239,68,68,0.15)">🚨</div>
+            <div style="flex:1">
+              <div class="notif-title">طلب عاجل من المبيعات</div>
+              <div class="notif-body">طلب قسم المبيعات مواد عاجلة لعرض العميل غداً. يحتاج الرد خلال ساعتين.</div>
+              <div class="notif-time">منذ 30 دقيقة</div>
+            </div>
+            <div class="unread-dot"></div>
+          </div>
+          <div class="notif-item unread">
+            <div class="notif-icon" style="background:rgba(34,197,94,0.15)">✅</div>
+            <div style="flex:1">
+              <div class="notif-title">تمت الموافقة على طلب صفحة الهبوط</div>
+              <div class="notif-body">وافق IT على طلب صفحة الهبوط للمنتج الجديد وسيبدأ العمل خلال 3 أيام.</div>
+              <div class="notif-time">منذ ساعتين</div>
+            </div>
+            <div class="unread-dot"></div>
+          </div>
+          <div class="notif-item unread">
+            <div class="notif-icon" style="background:rgba(245,158,11,0.15)">⚠️</div>
+            <div style="flex:1">
+              <div class="notif-title">موعد نهاية اعتماد الميزانية</div>
+              <div class="notif-body">تذكير: طلب اعتماد ميزانية Q1 لم يُوافق عليه. الموعد النهائي اليوم الساعة 5 مساءً.</div>
+              <div class="notif-time">منذ 3 ساعات</div>
+            </div>
+            <div class="unread-dot"></div>
+          </div>
+          <div class="notif-item unread">
+            <div class="notif-icon" style="background:rgba(26,110,255,0.15)">💬</div>
+            <div style="flex:1">
+              <div class="notif-title">تعليق جديد على طلب #003</div>
+              <div class="notif-body">أضاف محمد من IT تعليقاً على طلب صفحة الهبوط: "نحتاج ملف التصاميم بصيغة SVG"</div>
+              <div class="notif-time">منذ 5 ساعات</div>
+            </div>
+            <div class="unread-dot"></div>
+          </div>
+          <div class="notif-item unread">
+            <div class="notif-icon" style="background:rgba(167,139,250,0.15)">📋</div>
+            <div style="flex:1">
+              <div class="notif-title">طلب جديد من HR</div>
+              <div class="notif-body">أضافت الموارد البشرية طلب جديد لإعداد محتوى ترحيب بـ 5 موظفين جدد.</div>
+              <div class="notif-time">أمس</div>
+            </div>
+            <div class="unread-dot"></div>
+          </div>
+          <div class="notif-item">
+            <div class="notif-icon" style="background:rgba(34,197,94,0.1)">✅</div>
+            <div style="flex:1">
+              <div class="notif-title">اكتمل طلب بروشور Q1</div>
+              <div class="notif-body">تم تسليم بروشور منتجات الربع الأول للمبيعات بنجاح.</div>
+              <div class="notif-time">منذ يومين</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+
+<!-- ═══ ACTION PLAN ═══ -->
+    <div id="view-actionplan" class="view">
+
+      <!-- Year Header -->
+      <div class="ap-year-header">
+        <div>
+          <div style="font-size:16px;font-weight:700;margin-bottom:4px">🎯 خطة عمل إدارة التسويق 2025</div>
+          <div style="font-size:13px;color:var(--text-muted)">الخطة السنوية الكاملة، الأهداف، والمبادرات مع كل الإدارات</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <div class="ap-year-progress">
+            <div class="ap-year-ring">
+              <div class="ap-year-ring-inner">22%</div>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:700">إنجاز السنة</div>
+              <div style="font-size:11px;color:var(--text-muted)">مارس 2025 — شهر 3 من 12</div>
+            </div>
+          </div>
+          <button class="btn btn-primary">＋ مبادرة جديدة</button>
+        </div>
+      </div>
+
+      <!-- Quarters Overview -->
+      <div class="ap-quarters">
+        <div class="ap-quarter-card selected" onclick="filterQuarter('Q1')">
+          <div class="ap-q-header">
+            <div class="ap-q-label">الربع الأول • يناير — مارس</div>
+            <div class="ap-q-title">🚀 إطلاق وتأسيس</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px">
+              <span style="color:var(--text-muted)">التقدم</span>
+              <span style="color:var(--accent);font-weight:700">65%</span>
+            </div>
+            <div class="ap-q-bar-wrap"><div class="ap-q-bar" style="width:65%;background:linear-gradient(90deg,var(--accent),#F97316)"></div></div>
+          </div>
+          <div class="ap-q-stats">
+            <div><div class="ap-q-stat-num" style="color:var(--success)">8</div>مكتمل</div>
+            <div><div class="ap-q-stat-num" style="color:var(--accent2)">4</div>جاري</div>
+            <div><div class="ap-q-stat-num" style="color:var(--warning)">2</div>متأخر</div>
+          </div>
+        </div>
+        <div class="ap-quarter-card" onclick="filterQuarter('Q2')">
+          <div class="ap-q-header">
+            <div class="ap-q-label">الربع الثاني • أبريل — يونيو</div>
+            <div class="ap-q-title">📈 توسع وتطوير</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px">
+              <span style="color:var(--text-muted)">التقدم</span>
+              <span style="color:var(--accent2);font-weight:700">0%</span>
+            </div>
+            <div class="ap-q-bar-wrap"><div class="ap-q-bar" style="width:0%;background:linear-gradient(90deg,var(--accent2),#6366F1)"></div></div>
+          </div>
+          <div class="ap-q-stats">
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>مكتمل</div>
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>جاري</div>
+            <div><div class="ap-q-stat-num" style="color:var(--warning)">6</div>قادم</div>
+          </div>
+        </div>
+        <div class="ap-quarter-card" onclick="filterQuarter('Q3')">
+          <div class="ap-q-header">
+            <div class="ap-q-label">الربع الثالث • يوليو — سبتمبر</div>
+            <div class="ap-q-title">🔥 ذروة ومضاعفة</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px">
+              <span style="color:var(--text-muted)">التقدم</span>
+              <span style="color:var(--success);font-weight:700">0%</span>
+            </div>
+            <div class="ap-q-bar-wrap"><div class="ap-q-bar" style="width:0%;background:linear-gradient(90deg,var(--success),#10B981)"></div></div>
+          </div>
+          <div class="ap-q-stats">
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>مكتمل</div>
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>جاري</div>
+            <div><div class="ap-q-stat-num" style="color:var(--warning)">5</div>قادم</div>
+          </div>
+        </div>
+        <div class="ap-quarter-card" onclick="filterQuarter('Q4')">
+          <div class="ap-q-header">
+            <div class="ap-q-label">الربع الرابع • أكتوبر — ديسمبر</div>
+            <div class="ap-q-title">🏆 حصاد وتقييم</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px">
+              <span style="color:var(--text-muted)">التقدم</span>
+              <span style="color:#A78BFA;font-weight:700">0%</span>
+            </div>
+            <div class="ap-q-bar-wrap"><div class="ap-q-bar" style="width:0%;background:linear-gradient(90deg,#A78BFA,#6366F1)"></div></div>
+          </div>
+          <div class="ap-q-stats">
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>مكتمل</div>
+            <div><div class="ap-q-stat-num" style="color:var(--text-muted)">0</div>جاري</div>
+            <div><div class="ap-q-stat-num" style="color:var(--warning)">4</div>قادم</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Overview -->
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-header">
+          <div class="card-title">📅 توزيع المهام على مدار السنة</div>
+          <div class="card-sub" style="color:var(--text-muted);font-size:12px">اضغط على الشهر للتصفية</div>
+        </div>
+        <div style="padding:16px">
+          <div class="ap-months-grid">
+            <div class="ap-month-cell done" onclick="filterMonth(1)">
+              <div class="ap-month-name">يناير</div>
+              <div class="ap-month-tasks" style="color:var(--success)">7</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:100%;background:var(--success)"></div></div>
+            </div>
+            <div class="ap-month-cell done" onclick="filterMonth(2)">
+              <div class="ap-month-name">فبراير</div>
+              <div class="ap-month-tasks" style="color:var(--success)">5</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:100%;background:var(--success)"></div></div>
+            </div>
+            <div class="ap-month-cell current" onclick="filterMonth(3)">
+              <div class="ap-month-name" style="color:var(--accent)">مارس ●</div>
+              <div class="ap-month-tasks" style="color:var(--accent)">6</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:55%;background:var(--accent)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(4)">
+              <div class="ap-month-name">أبريل</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">4</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--accent2)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(5)">
+              <div class="ap-month-name">مايو</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">6</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--accent2)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(6)">
+              <div class="ap-month-name">يونيو</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">5</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--accent2)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(7)">
+              <div class="ap-month-name">يوليو</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">7</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--success)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(8)">
+              <div class="ap-month-name">أغسطس</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">4</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--success)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(9)">
+              <div class="ap-month-name">سبتمبر</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">6</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:var(--success)"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(10)">
+              <div class="ap-month-name">أكتوبر</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">8</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:#A78BFA"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(11)">
+              <div class="ap-month-name">نوفمبر</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">9</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:#A78BFA"></div></div>
+            </div>
+            <div class="ap-month-cell" onclick="filterMonth(12)">
+              <div class="ap-month-name">ديسمبر</div>
+              <div class="ap-month-tasks" style="color:var(--text-muted)">5</div>
+              <div class="ap-month-bar"><div class="ap-month-fill" style="width:0%;background:#A78BFA"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two columns: Initiatives + OKRs -->
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:20px">
+
+        <!-- Initiatives / Gantt -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+            <div style="font-size:15px;font-weight:700">📌 المبادرات السنوية</div>
+            <div class="ap-filters">
+              <div class="ap-filter-pill active" onclick="setFilter(this,'all')">الكل</div>
+              <div class="ap-filter-pill" onclick="setFilter(this,'q1')">Q1</div>
+              <div class="ap-filter-pill" onclick="setFilter(this,'q2')">Q2</div>
+              <div class="ap-filter-pill" onclick="setFilter(this,'q3')">Q3</div>
+              <div class="ap-filter-pill" onclick="setFilter(this,'q4')">Q4</div>
+            </div>
+          </div>
+
+          <!-- Gantt Chart -->
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-header">
+              <div class="card-title">📊 الجانت شارت — الخطة الزمنية</div>
+            </div>
+            <div style="padding:16px 20px">
+              <!-- Month labels -->
+              <div style="display:flex;margin-bottom:8px;padding-right:160px">
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">يناير</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">فبراير</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">مارس</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">أبريل</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">مايو</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">يونيو</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">يوليو</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">أغسطس</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">سبتمبر</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">أكتوبر</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">نوفمبر</div>
+                <div style="flex:1;text-align:center;font-size:9px;color:var(--text-muted);font-weight:600">ديسمبر</div>
+              </div>
+
+              <!-- Gantt rows -->
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <!-- Row helper: label + 12 cells -->
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">حملة رمضان</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:0;width:25%;height:100%;background:linear-gradient(90deg,var(--accent),#F97316);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#000">✓ مكتملة</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">إعادة تصميم الموقع</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:8.33%;width:25%;height:100%;background:linear-gradient(90deg,var(--accent2),#6366F1);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff">⚡ جاري</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">تطوير هوية بصرية</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:16.66%;width:33%;height:100%;background:linear-gradient(90deg,#A78BFA,#6366F1);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff">Q2</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">استراتيجية المحتوى</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:0;width:100%;height:100%;background:linear-gradient(90deg,rgba(34,197,94,0.3),rgba(16,185,129,0.1));border-radius:6px;display:flex;align-items:center;padding:0 8px;font-size:10px;color:var(--success)">مستمر طوال السنة</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">حملة الصيف</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:41.66%;width:25%;height:100%;background:linear-gradient(90deg,#F59E0B,#EF4444);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff">Q3</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">معرض المنتجات</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:33.33%;width:16.66%;height:100%;background:linear-gradient(90deg,#EC4899,#A78BFA);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff">Q3</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">حملة نهاية السنة</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:75%;width:25%;height:100%;background:linear-gradient(90deg,#A78BFA,#EC4899);border-radius:6px;opacity:0.9;display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:700;color:#fff">Q4</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:0">
+                  <div style="width:160px;font-size:11px;font-weight:600;flex-shrink:0;padding-left:8px">تقييم سنوي شامل</div>
+                  <div style="flex:1;display:flex;height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative">
+                    <div style="position:absolute;right:91.66%;width:8.33%;height:100%;background:linear-gradient(90deg,var(--success),#10B981);border-radius:6px;opacity:0.9"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Initiative Cards -->
+          <div class="ap-initiatives">
+            <div class="ap-init-card">
+              <div class="ap-init-top">
+                <div class="ap-init-icon" style="background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.3)">🌙</div>
+                <div style="flex:1">
+                  <div class="ap-init-title">حملة رمضان التسويقية 2025</div>
+                  <div class="ap-init-dept">🤝 تسويق + مبيعات + IT</div>
+                </div>
+                <span class="badge badge-done">✅ مكتملة</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+                إطلاق حملة إعلانية متكاملة على جميع المنصات الرقمية، تصميم مواد إبداعية، وتنسيق عروض مع المبيعات خلال شهر رمضان المبارك.
+              </div>
+              <div class="ap-init-meta">
+                <div class="ap-init-kpi">🎯 الهدف: <strong>+30% مبيعات</strong></div>
+                <div class="ap-init-kpi">📅 <strong>يناير — مارس</strong></div>
+                <div class="ap-init-kpi">💰 الميزانية: <strong>45,000 ريال</strong></div>
+              </div>
+            </div>
+
+            <div class="ap-init-card">
+              <div class="ap-init-top">
+                <div class="ap-init-icon" style="background:rgba(26,110,255,0.15);border:1px solid rgba(26,110,255,0.3)">💻</div>
+                <div style="flex:1">
+                  <div class="ap-init-title">إعادة تصميم الموقع الإلكتروني</div>
+                  <div class="ap-init-dept">🤝 تسويق + IT</div>
+                </div>
+                <span class="badge badge-inprogress">⚡ جاري</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+                تحديث شامل لموقع الشركة: تصميم جديد، تحسين تجربة المستخدم، صفحات منتجات جديدة، وتحسين السرعة ومحركات البحث SEO.
+              </div>
+              <div class="ap-init-meta">
+                <div class="ap-init-kpi">🎯 الهدف: <strong>+50% زيارات</strong></div>
+                <div class="ap-init-kpi">📅 <strong>فبراير — أبريل</strong></div>
+                <div class="ap-init-kpi">💰 الميزانية: <strong>30,000 ريال</strong></div>
+              </div>
+              <div style="margin-top:10px">
+                <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px">
+                  <span style="color:var(--text-muted)">التقدم</span>
+                  <span style="color:var(--accent2)">45%</span>
+                </div>
+                <div class="progress-bar" style="width:100%;height:6px"><div class="progress-fill" style="width:45%"></div></div>
+              </div>
+            </div>
+
+            <div class="ap-init-card">
+              <div class="ap-init-top">
+                <div class="ap-init-icon" style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3)">🎨</div>
+                <div style="flex:1">
+                  <div class="ap-init-title">تطوير الهوية البصرية للشركة</div>
+                  <div class="ap-init-dept">🤝 تسويق + HR + المبيعات</div>
+                </div>
+                <span class="badge badge-pending">⏳ قادم — Q2</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+                مراجعة وتحديث هوية الشركة البصرية الكاملة: الشعار، الألوان، الخطوط، قوالب العروض، وكل المواد المطبوعة والرقمية.
+              </div>
+              <div class="ap-init-meta">
+                <div class="ap-init-kpi">📅 <strong>أبريل — يونيو</strong></div>
+                <div class="ap-init-kpi">💰 الميزانية: <strong>20,000 ريال</strong></div>
+                <div class="ap-init-kpi">👥 الإدارات: <strong>4 إدارات</strong></div>
+              </div>
+            </div>
+
+            <div class="ap-init-card">
+              <div class="ap-init-top">
+                <div class="ap-init-icon" style="background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3)">☀️</div>
+                <div style="flex:1">
+                  <div class="ap-init-title">حملة الصيف — موسم الذروة</div>
+                  <div class="ap-init-dept">🤝 تسويق + مبيعات + العمليات</div>
+                </div>
+                <span class="badge badge-pending">⏳ قادم — Q3</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+                حملة ترويجية كبرى لموسم الصيف تشمل عروض خاصة، تعاون مع مؤثرين، وتغطية إعلامية واسعة بالتنسيق مع المبيعات والعمليات.
+              </div>
+              <div class="ap-init-meta">
+                <div class="ap-init-kpi">🎯 الهدف: <strong>+40% مبيعات</strong></div>
+                <div class="ap-init-kpi">📅 <strong>يوليو — سبتمبر</strong></div>
+                <div class="ap-init-kpi">💰 الميزانية: <strong>60,000 ريال</strong></div>
+              </div>
+            </div>
+
+            <div class="ap-init-card">
+              <div class="ap-init-top">
+                <div class="ap-init-icon" style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.3)">🎄</div>
+                <div style="flex:1">
+                  <div class="ap-init-title">حملة نهاية السنة والأعياد</div>
+                  <div class="ap-init-dept">🤝 تسويق + مبيعات + المالية</div>
+                </div>
+                <span class="badge badge-pending">⏳ قادم — Q4</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.7">
+                أضخم حملة في السنة: عروض نهاية السنة، كمبين الأعياد، وتقرير الأداء السنوي مع خطة 2026.
+              </div>
+              <div class="ap-init-meta">
+                <div class="ap-init-kpi">🎯 الهدف: <strong>+50% إيرادات</strong></div>
+                <div class="ap-init-kpi">📅 <strong>أكتوبر — ديسمبر</strong></div>
+                <div class="ap-init-kpi">💰 الميزانية: <strong>80,000 ريال</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- OKRs Sidebar -->
+        <div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:14px">🏆 الأهداف السنوية (OKRs)</div>
+
+          <div class="okr-card">
+            <div class="okr-objective">
+              <span style="font-size:20px">📈</span>
+              <div>
+                <div>تحقيق نمو في الإيرادات</div>
+                <div style="font-size:11px;font-weight:400;color:var(--text-muted)">Objective 1</div>
+              </div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">زيادة المبيعات الرقمية بنسبة 40%</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:35%;background:var(--accent)"></div></div>
+              <div class="okr-kr-val">35%</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">رفع معدل التحويل إلى 5%</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:60%;background:var(--accent2)"></div></div>
+              <div class="okr-kr-val">3%</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">اكتساب 2000 عميل جديد</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:25%;background:var(--success)"></div></div>
+              <div class="okr-kr-val">500</div>
+            </div>
+          </div>
+
+          <div class="okr-card">
+            <div class="okr-objective">
+              <span style="font-size:20px">📣</span>
+              <div>
+                <div>تعزيز الوعي بالعلامة التجارية</div>
+                <div style="font-size:11px;font-weight:400;color:var(--text-muted)">Objective 2</div>
+              </div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">الوصول لـ 100K متابع سوشيال ميديا</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:45%;background:var(--accent)"></div></div>
+              <div class="okr-kr-val">45K</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">نشر 200 محتوى عالي الجودة</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:22%;background:var(--accent2)"></div></div>
+              <div class="okr-kr-val">44</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">الحصول على 50 تغطية إعلامية</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:20%;background:#A78BFA)"></div></div>
+              <div class="okr-kr-val">10</div>
+            </div>
+          </div>
+
+          <div class="okr-card">
+            <div class="okr-objective">
+              <span style="font-size:20px">🤝</span>
+              <div>
+                <div>تحسين التنسيق مع الإدارات</div>
+                <div style="font-size:11px;font-weight:400;color:var(--text-muted)">Objective 3</div>
+              </div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">خفض وقت الرد على الطلبات لـ 24 ساعة</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:70%;background:var(--success)"></div></div>
+              <div class="okr-kr-val">70%</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">تنفيذ SOPs لكل الإدارات</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:80%;background:var(--accent)"></div></div>
+              <div class="okr-kr-val">80%</div>
+            </div>
+            <div class="okr-kr">
+              <div class="okr-kr-text">رضا الإدارات عن خدمات التسويق 90%</div>
+              <div class="okr-bar"><div class="okr-fill" style="width:75%;background:var(--accent2)"></div></div>
+              <div class="okr-kr-val">75%</div>
+            </div>
+          </div>
+
+          <!-- Budget Summary -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">💰 ملخص الميزانية السنوية</div>
+            </div>
+            <div style="padding:16px">
+              <div style="text-align:center;margin-bottom:16px">
+                <div style="font-size:28px;font-weight:900;color:var(--accent)">235,000</div>
+                <div style="font-size:12px;color:var(--text-muted)">إجمالي الميزانية (ريال)</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 10px;background:rgba(34,197,94,0.08);border-radius:7px;border:1px solid rgba(34,197,94,0.15)">
+                  <span>✅ مصروف حتى الآن</span>
+                  <span style="color:var(--success);font-weight:700">52,000 ريال</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 10px;background:rgba(26,110,255,0.08);border-radius:7px;border:1px solid rgba(26,110,255,0.15)">
+                  <span>⚡ مخصص للمبادرات الجارية</span>
+                  <span style="color:var(--accent2);font-weight:700">83,000 ريال</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px 10px;background:rgba(232,160,32,0.08);border-radius:7px;border:1px solid rgba(232,160,32,0.15)">
+                  <span>💼 متاح للاستخدام</span>
+                  <span style="color:var(--accent);font-weight:700">100,000 ريال</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- NEW REQUEST MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title">📋 طلب جديد</div>
+    <div class="modal-sub">أرسل طلبك لإدارة التسويق أو إلى إدارة أخرى</div>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>عنوان الطلب *</label>
+        <input placeholder="مثال: تصميم مواد حملة رمضان">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>الإدارة المستقبِلة *</label>
+        <select>
+          <option>التسويق</option>
+          <option>المبيعات</option>
+          <option>المالية</option>
+          <option>IT / التقنية</option>
+          <option>الموارد البشرية</option>
+          <option>العمليات</option>
+          <option>خدمة العملاء</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <label>نوع الطلب</label>
+        <select>
+          <option>تصميم / محتوى</option>
+          <option>اعتماد ميزانية</option>
+          <option>طلب بيانات</option>
+          <option>تنسيق فعالية</option>
+          <option>دعم تقني</option>
+          <option>أخرى</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>الأولوية</label>
+        <select>
+          <option>🔴 عالية</option>
+          <option selected>🟡 متوسطة</option>
+          <option>🟢 عادية</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top:16px">
+      <label>الموعد النهائي</label>
+      <input type="date">
+    </div>
+
+    <div class="form-group">
+      <label>تفاصيل الطلب *</label>
+      <textarea placeholder="اشرح تفاصيل الطلب، المتطلبات، والمخرجات المطلوبة..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>المرفقات (اختياري)</label>
+      <input type="file" style="padding:8px">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('modalOverlay').classList.remove('open')">إلغاء</button>
+      <button class="btn btn-primary" onclick="submitRequest()">📤 إرسال الطلب</button>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-item active" id="mnav-dashboard" onclick="mobileNav('dashboard', this)">
+    <span class="mobile-nav-icon">🏠</span>
+    <span class="mobile-nav-label">الرئيسية</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-requests" onclick="mobileNav('requests', this)">
+    <span class="mobile-nav-icon">📋</span>
+    <span class="mobile-nav-label">الطلبات</span>
+    <span class="mobile-nav-badge">7</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-kanban" onclick="mobileNav('kanban', this)">
+    <span class="mobile-nav-icon">🗂️</span>
+    <span class="mobile-nav-label">المهام</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-approvals" onclick="mobileNav('approvals', this)">
+    <span class="mobile-nav-icon">✅</span>
+    <span class="mobile-nav-label">اعتمادات</span>
+    <span class="mobile-nav-badge">3</span>
+  </div>
+  <div class="mobile-nav-item" id="mnav-more" onclick="toggleMore()">
+    <span class="mobile-nav-icon">⋯</span>
+    <span class="mobile-nav-label">المزيد</span>
+  </div>
+</nav>
+
+<!-- MOBILE MORE MENU -->
+<div class="mobile-more-menu" id="mobileMore">
+  <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:1px;padding:4px 8px 12px">المزيد من الأقسام</div>
+  <div class="mobile-more-grid">
+    <div class="mobile-more-item" onclick="mobileNav('actionplan',null);toggleMore()">
+      <span class="mobile-more-icon">🎯</span> خطة العمل
+    </div>
+    <div class="mobile-more-item" onclick="mobileNav('sop',null);toggleMore()">
+      <span class="mobile-more-icon">📘</span> الإجراءات SOP
+    </div>
+    <div class="mobile-more-item" onclick="mobileNav('reports',null);toggleMore()">
+      <span class="mobile-more-icon">📊</span> التقارير
+    </div>
+    <div class="mobile-more-item" onclick="mobileNav('notifications',null);toggleMore()">
+      <span class="mobile-more-icon">🔔</span> الإشعارات
+    </div>
+  </div>
+  <button class="btn btn-primary" style="width:100%;margin-top:14px;justify-content:center" onclick="openModal();toggleMore()">
+    ＋ طلب جديد
+  </button>
+</div>
+
+<script>
+  const pages = {
+    dashboard: { title: 'لوحة التحكم', sub: 'نظرة عامة على أعمال إدارة التسويق' },
+    requests: { title: 'إدارة الطلبات', sub: 'تتبع ومتابعة جميع الطلبات بين الإدارات' },
+    kanban: { title: 'بورد المهام', sub: 'عرض المهام على شكل بورد تفاعلي' },
+    actionplan: { title: 'خطة العمل السنوية 2025', sub: 'المبادرات، الأهداف، والخطة الزمنية الكاملة' },
+    sop: { title: 'دليل الإجراءات SOP', sub: 'الإجراءات التشغيلية المعتمدة مع كل إدارة' },
+    approvals: { title: 'الاعتمادات', sub: 'الطلبات التي تحتاج موافقتك' },
+    reports: { title: 'التقارير والإحصائيات', sub: 'تحليل أداء الطلبات والإدارات' },
+    notifications: { title: 'الإشعارات', sub: 'متابعة آخر التحديثات والتنبيهات' },
+  };
+
+  function navigate(page) {
+    // Update nav
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+    event && event.currentTarget && event.currentTarget.classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(el => {
+      if (el.getAttribute('onclick') && el.getAttribute('onclick').includes(`'${page}'`)) {
+        el.classList.add('active');
+      }
+    });
+
+    // Hide all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(`view-${page}`).classList.add('active');
+
+    // Update header
+    if (pages[page]) {
+      document.getElementById('pageTitle').textContent = pages[page].title;
+      document.getElementById('pageSub').textContent = pages[page].sub;
+    }
+  }
+
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+      document.getElementById('modalOverlay').classList.remove('open');
+    }
+  }
+
+  function submitRequest() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    // Show success toast
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+      background:linear-gradient(135deg,#22C55E,#10B981);
+      color:white; padding:14px 28px; border-radius:12px;
+      font-family:'Cairo',sans-serif; font-size:14px; font-weight:600;
+      box-shadow:0 8px 30px rgba(34,197,94,0.4); z-index:999;
+      animation: fadeIn 0.3s ease;
+    `;
+    toast.innerHTML = '✅ تم إرسال طلبك بنجاح!';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
+  // Tab click
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      this.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  function filterQuarter(q) {
+    document.querySelectorAll('.ap-quarter-card').forEach(c => c.classList.remove('selected'));
+    event.currentTarget.classList.add('selected');
+  }
+
+  function filterMonth(m) {
+    document.querySelectorAll('.ap-month-cell').forEach(c => c.style.outline = 'none');
+    event.currentTarget.style.outline = '2px solid var(--accent)';
+  }
+
+  function setFilter(el, val) {
+    el.closest('.ap-filters').querySelectorAll('.ap-filter-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  function mobileNav(page, el) {
+    // Update mobile nav active state
+    document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+    if (el) el.classList.add('active');
+    // Also call main navigate
+    navigate(page);
+    // Close more menu if open
+    document.getElementById('mobileMore').classList.remove('open');
+  }
+
+  function toggleMore() {
+    const menu = document.getElementById('mobileMore');
+    menu.classList.toggle('open');
+  }
+
+  // Close more menu when clicking outside
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMore');
+    const moreBtn = document.getElementById('mnav-more');
+    if (!menu.contains(e.target) && !moreBtn.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
